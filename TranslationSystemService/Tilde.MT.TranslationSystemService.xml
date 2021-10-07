@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tilde.MT.TranslationSystemService</name>
+    </assembly>
+    <members>
+        <member name="T:Tilde.MT.TranslationSystemService.Controllers.LanguageDirectionController">
+            <summary>
+            API for language directions
+            </summary>
+        </member>
+        <member name="M:Tilde.MT.TranslationSystemService.Controllers.LanguageDirectionController.Get">
+            <summary>
+            Lists available languages and domains
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.APIResponse.Error">
+            <summary>
+            Error information
+            </summary>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.Error.Code">
+            <summary>
+            Error code
+            </summary>
+            <example>0</example>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.Error.Message">
+            <summary>
+            Error message
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.LanguageDirection.SourceLanguage">
+            <summary>
+            Source language code
+            </summary>
+            <example>en</example>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.LanguageDirection.TargetLanguage">
+            <summary>
+            Target language code
+            </summary>
+            <example>et</example>
+        </member>
+        <member name="P:Tilde.MT.TranslationSystemService.Models.LanguageDirection.Domain">
+            <summary>
+            Translation domain
+            </summary>
+            <example>general</example>
+        </member>
+    </members>
+</doc>
