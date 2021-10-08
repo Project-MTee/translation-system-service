@@ -10,8 +10,5 @@ namespace Tilde.MT.TranslationSystemService.Models
     {
         [JsonPropertyName("languageDirections")]
         public IEnumerable<LanguageDirection> LanguageDirections { get; set; }
-
-        [JsonPropertyName("error")]
-        public Error Error { get; set; }
     }
 }

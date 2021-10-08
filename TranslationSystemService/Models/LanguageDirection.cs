@@ -6,21 +6,21 @@ namespace Tilde.MT.TranslationSystemService.Models
     public class LanguageDirection
     {
         /// <summary>
-        /// Source language code
+        /// The language of the source text. Two-byte languge code accordding to ISO 639-1.
         /// </summary>
         /// <example>en</example>
         [JsonPropertyName("srcLang")]
         public string SourceLanguage { get; set; }
 
         /// <summary>
-        /// Target language code
+        /// The language to translate text to. Two-byte languge code according to ISO 639-1.
         /// </summary>
         /// <example>et</example>
         [JsonPropertyName("trgLang")]
         public string TargetLanguage { get; set; }
 
         /// <summary>
-        /// Translation domain
+        /// Text domain of the translation system to use for producing the translation.
         /// </summary>
         /// <example>general</example>
         [JsonPropertyName("domain")]
