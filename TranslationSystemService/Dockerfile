@@ -19,4 +19,4 @@ RUN dotnet publish "TranslationSystemService.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TranslationSystemService.dll"]
+ENTRYPOINT ["dotnet", "Tilde.MT.TranslationSystemService.dll"]
