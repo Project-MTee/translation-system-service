@@ -23,9 +23,7 @@ namespace Tilde.MT.TranslationSystemService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var serviceConfiguration = Configuration.GetSection("Services").Get<ConfigurationServices>();
             var configurationSettings = Configuration.GetSection("Configuration").Get<ConfigurationSettings>();
-            services.Configure<ConfigurationServices>(Configuration.GetSection("Services"));
             services.Configure<ConfigurationSettings>(Configuration.GetSection("Configuration"));
 
             services.AddControllers();
