@@ -7,8 +7,6 @@ Can be used in frontend to show which languages are available or other api servi
 
 `translation system` - source language + target language + domain
 
-Publishes available language directions and domain information
-
 ## Architecture
 
 ```
@@ -20,13 +18,33 @@ Publishes available language directions and domain information
 |                                   |
  ------------------------------------
 
-                ↓
-                ↓
-                ↓   Publishes available language directions (via RabbitMQ)
-                ↓
-
-                .
-                .
-
 ```
 
+# Test
+
+Install MySQL
+
+```Shell
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+# MySQL
+helm install mysql --set auth.rootPassword=root bitnami/mysql
+```
+
+forward ports:
+
+```Shell
+# MySQL
+kubectl port-forward --namespace default svc/mysql 3306:3306
+```
+
+Using docker compose
+```
+docker-compose up --build
+```
+
+Open Swagger
+```
+http://localhost:5002/swagger/index.html
+```

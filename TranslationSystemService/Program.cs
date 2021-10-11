@@ -29,7 +29,9 @@ namespace Tilde.MT.TranslationSystemService
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+#if DEBUG
+                .AddJsonFile($"appsettings.Development.json", optional: false)
+#endif
                 .AddEnvironmentVariables()
                 .Build();
 
