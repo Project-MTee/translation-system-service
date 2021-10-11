@@ -22,6 +22,16 @@ Can be used in frontend to show which languages are available or other api servi
 
 # Test
 
+
+Install prerequisites
+
+```Shell
+# install kubectl
+choco install kubernetes-cli
+# install helm
+choco install kubernetes-helm
+```
+
 Install MySQL
 
 ```Shell
