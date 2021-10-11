@@ -20,11 +20,22 @@ namespace Tilde.MT.TranslationSystemService
 
         public IConfiguration Configuration { get; }
 
+        readonly string DevelopmentCorsPolicy = "development-policy";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var configurationSettings = Configuration.GetSection("Configuration").Get<ConfigurationSettings>();
             services.Configure<ConfigurationSettings>(Configuration.GetSection("Configuration"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: DevelopmentCorsPolicy,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200").AllowAnyHeader();
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,7 +65,7 @@ namespace Tilde.MT.TranslationSystemService
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(DevelopmentCorsPolicy);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
