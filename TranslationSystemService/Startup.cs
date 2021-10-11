@@ -65,7 +65,9 @@ namespace Tilde.MT.TranslationSystemService
             app.UseRouting();
 
             app.UseAuthorization();
+#if DEBUG
             app.UseCors(DevelopmentCorsPolicy);
+#endif
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
