@@ -37,10 +37,10 @@ namespace Tilde.MT.TranslationSystemService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(GetLanguageDirections), Description ="My description")]
-        public ActionResult<GetLanguageDirections> Get()
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(LanguageDirectionsResponse), Description ="My description")]
+        public ActionResult<LanguageDirectionsResponse> Get()
         {
-            var response = new GetLanguageDirections()
+            var response = new LanguageDirectionsResponse()
             {
                 LanguageDirections = _configurationSettings.LanguageDirections.Select(item => _mapper.Map<Models.LanguageDirection>(item))
             };

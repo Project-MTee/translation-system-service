@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tilde.MT.TranslationSystemService.Models
 {
-    public class GetLanguageDirections
+    public class LanguageDirectionsResponse
     {
         [JsonPropertyName("languageDirections")]
         public IEnumerable<LanguageDirection> LanguageDirections { get; set; }
