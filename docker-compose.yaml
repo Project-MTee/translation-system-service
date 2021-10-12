@@ -1,0 +1,12 @@
+services:
+  translation-system-service:
+    build:
+      context: ./
+      dockerfile: ./TranslationSystemService/Dockerfile
+      args:
+        CONFIGURATION: $CONFIGURATION
+    ports:
+      - "5002:80"
+    env_file:
+      - .env
+
