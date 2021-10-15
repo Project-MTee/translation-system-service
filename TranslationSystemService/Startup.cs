@@ -75,13 +75,13 @@ namespace Tilde.MT.TranslationSystemService
             {
                 endpoints.MapControllers();
 
-                // Startup probe
-                endpoints.MapHealthChecks("/health/startup", new HealthCheckOptions()
+                // Startup probe / readyness probe
+                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions()
                 {
 
                 });
 
-                // Liveness / readyness probe
+                // Liveness 
                 endpoints.MapHealthChecks("/health/live", new HealthCheckOptions()
                 {
 
