@@ -9,6 +9,9 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 
 ARG CONFIGURATION=Release
 
+# For build version extraction
+RUN apt update && apt install -y mono-utils
+
 WORKDIR /src
 COPY ["TranslationSystemService/TranslationSystemService.csproj", "TranslationSystemService/"]
 RUN dotnet restore "TranslationSystemService/TranslationSystemService.csproj"
@@ -21,6 +24,9 @@ FROM build AS publish
 ARG CONFIGURATION=Release
 
 RUN dotnet publish "TranslationSystemService.csproj" -c $CONFIGURATION -o /app/publish
+
+# Extract build version for service
+RUN monodis --assembly /app/publish/Tilde.MT.TranslationSystemService.dll | grep Version | awk -F ' ' '{print $2}' > /app/publish/version.txt
 
 FROM base AS final
 WORKDIR /app
