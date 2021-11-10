@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Linq;
@@ -17,17 +16,14 @@ namespace Tilde.MT.TranslationSystemService.Controllers
     [Route("[controller]")]
     public class LanguageDirectionController : ControllerBase
     {
-        private readonly ILogger<LanguageDirectionController> _logger;
         private readonly ConfigurationSettings _configurationSettings;
         private readonly IMapper _mapper;
 
         public LanguageDirectionController(
-            ILogger<LanguageDirectionController> logger,
             IOptions<ConfigurationSettings> configurationSettings,
             IMapper mapper
         )
         {
-            _logger = logger;
             _configurationSettings = configurationSettings.Value;
             _mapper = mapper;
         }
@@ -37,7 +33,7 @@ namespace Tilde.MT.TranslationSystemService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(LanguageDirectionsResponse), Description ="My description")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(LanguageDirectionsResponse), Description ="")]
         public ActionResult<LanguageDirectionsResponse> Get()
         {
             var response = new LanguageDirectionsResponse()
