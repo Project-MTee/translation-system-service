@@ -1,69 +1,46 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.IO;
-using Tilde.MT.TranslationSystemService.Models.Configuration;
-using Tilde.MT.TranslationSystemService.Models.Mappings;
+using Serilog.Events;
+using System;
 
-const string DevelopmentCorsPolicy = "development-policy";
-
-var builder = WebApplication.CreateBuilder(args);
-
-Log.Logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
-    .WriteTo.Debug()
-    .WriteTo.Console()
-    .ReadFrom.Configuration(builder.Configuration)
-    .CreateLogger();
-
-var configurationSettings = builder.Configuration.GetSection("Configuration").Get<ConfigurationSettings>();
-var mappingConfig = new MapperConfiguration(config =>
+namespace Tilde.MT.TranslationSystemService
 {
-    config.AddProfile(new MappingProfile());
-}); 
-builder.Services.Configure<ConfigurationSettings>(builder.Configuration.GetSection("Configuration"));
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(
-        name: DevelopmentCorsPolicy,
-        builder =>
+    public class Program
+    {
+        public static void Main(string[] args)
         {
-            builder.WithOrigins("http://localhost:4200").AllowAnyHeader();
+            ConfigureSerilog();
+            CreateHostBuilder(args).Build().Run();
         }
-    );
-});
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(config =>
-{
-    config.SwaggerDoc("v1", new OpenApiInfo { 
-        Title = "TranslationSystemService", 
-        Version = "v1" 
-    });
-    config.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, $"{nameof(Tilde)}.{nameof(Tilde.MT)}.{nameof(Tilde.MT.TranslationSystemService)}.xml"));
-});
-builder.Services.AddSingleton(mappingConfig.CreateMapper());
-builder.Host.UseSerilog();
 
-var app = builder.Build();
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+        }
 
+        private static void ConfigureSerilog()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
 #if DEBUG
-app.UseDeveloperExceptionPage();
-app.UseSwagger();
-app.UseSwaggerUI();
+                .AddJsonFile($"appsettings.Development.json", optional: false)
 #endif
+                .AddEnvironmentVariables()
+                .Build();
 
-app.UseRouting();
-
-#if DEBUG
-app.UseCors(DevelopmentCorsPolicy);
-#endif
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
-app.Run();
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Debug()
+                .WriteTo.Console()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+        }
+    }
+}
