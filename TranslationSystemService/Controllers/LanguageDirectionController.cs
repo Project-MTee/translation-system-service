@@ -4,8 +4,8 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Linq;
 using System.Net;
-using Tilde.MT.TranslationSystemService.Models;
 using Tilde.MT.TranslationSystemService.Models.Configuration;
+using Tilde.MT.TranslationSystemService.Models.DTO.LanguageDirections;
 
 namespace Tilde.MT.TranslationSystemService.Controllers
 {
@@ -38,7 +38,7 @@ namespace Tilde.MT.TranslationSystemService.Controllers
         {
             var response = new LanguageDirectionsResponse()
             {
-                LanguageDirections = _configurationSettings.LanguageDirections.Select(item => _mapper.Map<Models.LanguageDirection>(item))
+                LanguageDirections = _configurationSettings.LanguageDirections.Select(item => _mapper.Map<LanguageDirection>(item))
             };
 
             return Ok(response);

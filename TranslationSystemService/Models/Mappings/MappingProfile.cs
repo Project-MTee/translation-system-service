@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Tilde.MT.TranslationSystemService.Models.DTO.LanguageDirections;
 
 namespace Tilde.MT.TranslationSystemService.Models.Mappings
 {
@@ -6,7 +7,7 @@ namespace Tilde.MT.TranslationSystemService.Models.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Models.Configuration.SettingsConfiguration.LanguageDirection, Models.LanguageDirection>();
+            CreateMap<Models.Configuration.SettingsConfiguration.LanguageDirection, LanguageDirection>();
         }
     }
 }
