@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Tilde.MT.TranslationSystemService.Models
+namespace Tilde.MT.TranslationSystemService.Models.DTO.LanguageDirections
 {
     public class LanguageDirectionsResponse
     {
