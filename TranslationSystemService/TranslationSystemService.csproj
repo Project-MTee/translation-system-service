@@ -6,7 +6,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName>Tilde.MT.TranslationSystemService</AssemblyName>
     <RootNamespace>Tilde.MT.TranslationSystemService</RootNamespace>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
