@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.IO;
+using Tilde.MT.TranslationSystemService.Extensions;
 using Tilde.MT.TranslationSystemService.Models.Configuration;
 using Tilde.MT.TranslationSystemService.Models.Mappings;
 
@@ -21,29 +22,17 @@ namespace Tilde.MT.TranslationSystemService
 
         public IConfiguration Configuration { get; }
 
-        readonly string DevelopmentCorsPolicy = "development-policy";
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var configurationSettings = Configuration.GetSection("Configuration").Get<ConfigurationSettings>();
             services.Configure<ConfigurationSettings>(Configuration.GetSection("Configuration"));
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: DevelopmentCorsPolicy,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200").AllowAnyHeader();
-                                  });
-            });
+            services.AddCorsPolicies();
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TranslationSystemService", Version = "v1" });
-                c.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, $"{nameof(Tilde)}.{nameof(Tilde.MT)}.{nameof(Tilde.MT.TranslationSystemService)}.xml"));
-            });
+
+            services.AddDocumentation();
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -58,9 +47,8 @@ namespace Tilde.MT.TranslationSystemService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 #if DEBUG
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TranslationSystemService v1"));
+            app.UseDeveloperExceptionPage();
+            app.UseDocumentation();            
 #endif
 
             //app.UseHttpsRedirection();
@@ -69,7 +57,7 @@ namespace Tilde.MT.TranslationSystemService
 
             app.UseAuthorization();
 #if DEBUG
-            app.UseCors(DevelopmentCorsPolicy);
+            app.UseCorsPolicies();
 #endif
             app.UseEndpoints(endpoints =>
             {

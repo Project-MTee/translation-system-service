@@ -20,6 +20,21 @@ Can be used in frontend to show which languages are available or other api servi
 
 ```
 
+# Monitor
+
+## Healthcheck probes
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+
+Startup probe / Readiness probe:
+
+`/health/ready`
+
+Liveness probe:
+
+`/health/live`
+
+
 # Test
 
 Using docker compose
