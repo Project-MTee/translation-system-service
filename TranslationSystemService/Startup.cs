@@ -48,7 +48,7 @@ namespace Tilde.MT.TranslationSystemService
         {
 #if DEBUG
             app.UseDeveloperExceptionPage();
-            app.UseDocumentation();            
+            app.UseDocumentation();
 #endif
 
             //app.UseHttpsRedirection();
@@ -59,6 +59,13 @@ namespace Tilde.MT.TranslationSystemService
 #if DEBUG
             app.UseCorsPolicies();
 #endif
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Disposition", "attachment; filename=\"api.json\"");
+                await next.Invoke();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
